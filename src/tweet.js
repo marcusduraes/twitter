@@ -47,34 +47,35 @@ function loadTweet() {
     }
   }
 }
-
 tweetBtn.addEventListener("click", tweet);
 function tweet() {
-  const infoDate = {
-    hours: new Date().getHours(),
-    minutes: function () {
-      let minutes = new Date().getMinutes();
-      minutes = ("0" + minutes).slice(-2);
-      return minutes;
-    },
-    month: months[new Date().getMonth()],
-    day: new Date().getDate(),
-    year: new Date().getFullYear(),
-    infoDateResult: function () {
-      let infoDateResult = `${this.hours}:${this.minutes()} · ${this.month} ${
-        this.day
-      }, ${this.year}`;
-      return infoDateResult;
-    },
-  };
+  if (contentText.value) {
+    const infoDate = {
+      hours: new Date().getHours(),
+      minutes: function () {
+        let minutes = new Date().getMinutes();
+        minutes = ("0" + minutes).slice(-2);
+        return minutes;
+      },
+      month: months[new Date().getMonth()],
+      day: new Date().getDate(),
+      year: new Date().getFullYear(),
+      infoDateResult: function () {
+        let infoDateResult = `${this.hours}:${this.minutes()} · ${this.month} ${
+          this.day
+        }, ${this.year}`;
+        return infoDateResult;
+      },
+    };
 
-  tweets.push(new Tweet(contentText.value, infoDate.infoDateResult()));
-  localStorage.myTweets = JSON.stringify(tweets);
+    tweets.push(new Tweet(contentText.value, infoDate.infoDateResult()));
+    localStorage.myTweets = JSON.stringify(tweets);
 
-  contentText.value = "";
-  myFunc();
-  updateTweets();
-  updateNumberTweets();
+    contentText.value = "";
+    myFunc();
+    updateTweets();
+    updateNumberTweets();
+  }
 }
 
 function updateTweets() {
